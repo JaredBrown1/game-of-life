@@ -10,7 +10,7 @@ class Game extends React.Component {
     this.cols = WIDTH / CELL_SIZE;
     this.board = this.makeEmptyBoard();
   }
-  state = { cells: [] };
+  state = { cells: [], interval: 100, isRunning: false };
   // Create an empty board
   makeEmptyBoard() {
     let board = [];
@@ -57,11 +57,81 @@ class Game extends React.Component {
     this.setState({ cells: this.makeCells() });
   };
 
+  runGame = () => {
+    this.setState({ isRunning: true });
+  };
+
+  stopGame = () => {
+    this.setState({ isRunning: false });
+  };
+
+  handleIntervalChange = (event) => {
+    this.setState({ interval: event.target.value });
+  };
+
+  runIteration() {
+    let newBoard = this.makeEmptyBoard();
+
+    // for (let y = 0; y < this.rows; y++) {
+    //   for (let x = 0; x < this.cols; x++) {
+    //     let neighbors = this.calculateNeighbors(this.board, x, y);
+    //     if (this.board[y][x]) {
+    //       if (neighbors === 2 || neighbors === 3) {
+    //         newBoard[y][x] = true;
+    //       } else {
+    //         newBoard[y][x] = false;
+    //       }
+    //     } else {
+    //       if (!this.board[y][x] && neighbors === 3) {
+    //         newBoard[y][x] = true;
+    //       }
+    //     }
+    //   }
+    // }
+  }
+
+  runGame = () => {
+    this.setState({ isRunning: true });
+    this.runIteration();
+    console.log("running iteration");
+    let newBoard = this.makeEmptyBoard();
+    this.board = newBoard;
+    this.setState({ cells: this.makeCells() });
+    this.timeoutHandler = window.setTimeout(() => {
+      this.runIteration();
+    }, this.state.interval);
+  };
+
+  stopGame = () => {
+    this.setState({ isRunning: false });
+    if (this.timeoutHandler) {
+      window.clearTimeout(this.timeoutHandler);
+      this.timeoutHandler = null;
+    }
+  };
+
   render() {
     const { cells } = this.state;
     return (
       <div>
-        {" "}
+        <div className="controls">
+          {" "}
+          Update every{" "}
+          <input
+            value={this.state.interval}
+            onChange={this.handleIntervalChange}
+          />{" "}
+          msec{" "}
+          {this.state.isRunning ? (
+            <button className="button" onClick={this.stopGame}>
+              Stop
+            </button>
+          ) : (
+            <button className="button" onClick={this.runGame}>
+              Run
+            </button>
+          )}{" "}
+        </div>
         <div
           className="Board"
           style={{

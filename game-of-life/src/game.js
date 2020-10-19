@@ -5,6 +5,32 @@ const CELL_SIZE = 20;
 const WIDTH = 800;
 const HEIGHT = 600;
 
+const about = () => {
+  alert(`Who is John Conway?
+    John Horton Conway(12/26/1937 - 04/11/2020) an English mathematician.
+    He was was active in a multitude of different theories, such as, finite groups, knot theory, number theory,
+    combinatorial game theory and coding theory.
+    However, he was mostly known for his invention of the cellular automaton known as "The Game of Life"`);
+};
+
+const aboutGame = () => {
+  alert(`What is "The Game of Life?"
+    The game of life is a cellular automaton ( A collection of "colored" cells on a grid of specified shape that
+    evolves through a number of discrete time steps according to a set of rules based on the states of
+    neighboring cells.)
+How can Conway's "Game of Life" be useful in real life?
+    It can help visualize how human or animal groups themselves rotate through environments or migrate through them in
+    search of more resources.`);
+};
+
+const rules = () => {
+  alert(`The rules of "The Game of Life":
+        #1- Any live cell with fewer than two live neighbors dies (under-population).
+        #2- Any live cell with three live neighbors live on to the next generation.
+        #3- Any live cell with more than three live neighbors dies (overpopulation).
+        #4- Any dead cell with exactly three live neighbors becomes a live cell (reproduction).`);
+};
+
 class Cell extends React.Component {
   render() {
     const { x, y } = this.props;
@@ -206,12 +232,14 @@ class Game extends React.Component {
         </div>
 
         <div className="controls">
-          Update every{" "}
-          <input
-            value={this.state.interval}
-            onChange={this.handleIntervalChange}
-          />{" "}
-          msec
+          <div className="controls-1">
+            Update every{" "}
+            <input
+              value={this.state.interval}
+              onChange={this.handleIntervalChange}
+            />{" "}
+            msec
+          </div>
           {isRunning ? (
             <button className="button" onClick={this.stopGame}>
               Stop
@@ -227,6 +255,11 @@ class Game extends React.Component {
           <button className="button" onClick={this.handleClear}>
             Clear
           </button>
+          <button onClick={about}>About Conway</button>
+
+          <button onClick={aboutGame}>About Game</button>
+
+          <button onClick={rules}>Rules</button>
         </div>
       </div>
     );

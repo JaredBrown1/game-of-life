@@ -1,3 +1,27 @@
 .App {
   text-align: center;
 }
+
+button {
+  width: 110px;
+  height: 50px;
+  background-color: gray;
+}
+
+button:hover {
+  background-color: white;
+  cursor: pointer;
+}
+
+.top-buttons {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.controls-1 {
+  padding: 10px;
+}

@@ -5,7 +5,7 @@ import Game from "./game";
 function App() {
   return (
     <div className="App">
-      <h1>Conways Game of Life</h1>
+      <h1 style={{ fontFamily: "Krona One" }}>Conways Game of Life</h1>
       <Game />
     </div>
   );

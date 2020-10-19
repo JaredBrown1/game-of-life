@@ -5,11 +5,11 @@
 button {
   width: 110px;
   height: 50px;
-  background-color: gray;
+  background-color: white;
 }
 
 button:hover {
-  background-color: white;
+  background-color: gray;
   cursor: pointer;
 }
 

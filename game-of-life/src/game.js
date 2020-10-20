@@ -1,9 +1,9 @@
 import React from "react";
 import "./Game.css";
 
-const CELL_SIZE = 20;
-const WIDTH = 800;
-const HEIGHT = 600;
+const CELL_SIZE = 15;
+const WIDTH = 600;
+const HEIGHT = 450;
 
 const about = () => {
   alert(`Who is John Conway?
@@ -57,12 +57,14 @@ class Game extends React.Component {
     this.board = this.makeEmptyBoard();
   }
 
+  // cells are stored in a array
   state = {
     cells: [],
     isRunning: false,
     interval: 100,
   };
 
+  // this method creates the empty board
   makeEmptyBoard() {
     let board = [];
     for (let y = 0; y < this.rows; y++) {
@@ -85,6 +87,7 @@ class Game extends React.Component {
     };
   }
 
+  // creates cells
   makeCells() {
     let cells = [];
     for (let y = 0; y < this.rows; y++) {
@@ -98,6 +101,7 @@ class Game extends React.Component {
     return cells;
   }
 
+  // toggle cells dead or alive
   handleClick = (event) => {
     const elemOffset = this.getElementOffset();
     const offsetX = event.clientX - elemOffset.x;
@@ -113,11 +117,12 @@ class Game extends React.Component {
     this.setState({ cells: this.makeCells() });
   };
 
+  // start button
   runGame = () => {
     this.setState({ isRunning: true });
     this.runIteration();
   };
-
+  // end button
   stopGame = () => {
     this.setState({ isRunning: false });
     if (this.timeoutHandler) {
@@ -126,6 +131,7 @@ class Game extends React.Component {
     }
   };
 
+  // runs cells filled in board
   runIteration() {
     let newBoard = this.makeEmptyBoard();
 
@@ -160,6 +166,7 @@ class Game extends React.Component {
    * @param {int} x
    * @param {int} y
    */
+  // this checks to see if a cell has neighbors
   calculateNeighbors(board, x, y) {
     let neighbors = 0;
     const dirs = [
@@ -191,15 +198,18 @@ class Game extends React.Component {
     return neighbors;
   }
 
+  // event handler
   handleIntervalChange = (event) => {
     this.setState({ interval: event.target.value });
   };
 
+  // clears the board
   handleClear = () => {
     this.board = this.makeEmptyBoard();
     this.setState({ cells: this.makeCells() });
   };
 
+  // seeds board with random cells
   handleRandom = () => {
     for (let y = 0; y < this.rows; y++) {
       for (let x = 0; x < this.cols; x++) {
